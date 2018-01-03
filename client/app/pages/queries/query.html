@@ -96,22 +96,23 @@
                 <span class="zmdi zmdi-play"></span> Execute
               </button>
 
-              <button type="button" class="btn btn-default btn-s" ng-click="formatQuery()">
-                <span class="zmdi zmdi-format-indent-increase"></span> Format Query
-              </button>
-
-              <i class="fa fa-database"></i> &nbsp;
-              <select id="data-source-selection" ng-disabled="!isQueryOwner" ng-model="query.data_source_id" ng-change="updateDataSource()"
-                      ng-options="ds.id as ds.name for ds in dataSources"></select>
+              <label for="data-source-selection">
+                <span class="fa fa-database"></span>
+                <select id="data-source-selection" ng-disabled="!isQueryOwner" ng-model="query.data_source_id" ng-change="updateDataSource()"
+                  ng-options="ds.id as ds.name for ds in dataSources"></select>
+              </label>
               <a ng-if="dataSource.options.doc_url != '' && dataSource.options.doc_url" ng-href={{dataSource.options.doc_url}}>{{dataSource.type_name}} documentation</a>
               <span ng-if="dataSource.options.doc_url == '' || !dataSource.options.doc_url">{{ dataSource.type_name }} documentation</span>
               <get-data-source-version id='data-source-version'></get-data-source-version>
 
-              <input type="checkbox" ng-model="editorAutocomplete">
-                Enable Autocomplete
-              </button>
-
               <div class="pull-right">
+                <label>
+                  <input type="checkbox" ng-model="editorAutocomplete">
+                  <span class="fa fa-magic"></span> Autocomplete
+                </label>
+                <button type="button" class="btn btn-default btn-s" ng-click="formatQuery()">
+                  <span class="zmdi zmdi-format-indent-increase"></span> Format
+                </button>
                 <button class="btn btn-s btn-default" ng-click="togglePublished()" ng-if="query.is_draft && query.id != undefined && (isQueryOwner || currentUser.hasPermission('admin'))">
                   <span class="fa fa-paper-plane"></span> Publish
                 </button>
