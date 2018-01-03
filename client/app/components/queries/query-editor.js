@@ -117,9 +117,9 @@ function queryEditor(QuerySnippet) {
               if (newSchema !== oldSchema) {
                 const tokensCount =
                   newSchema.reduce((totalLength, table) => totalLength + table.columns.length, 0);
-                // If there are too many tokens we disable live autocomplete,
-                // as it makes typing slower.
-                if (tokensCount > 5000 || !$scope.$parent.editorAutocomplete) {
+                // If there are too many tokens or if it's requested via the UI
+                // we disable live autocomplete, as it makes typing slower.
+                if (tokensCount > 5000 || !$scope.$parent.autocompleteQuery) {
                   editor.setOption('enableLiveAutocompletion', false);
                   editor.setOption('enableBasicAutocompletion', false);
                 } else {
@@ -132,9 +132,9 @@ function queryEditor(QuerySnippet) {
             $scope.$parent.$on('angular-resizable.resizing', () => {
               editor.resize();
             });
-            $scope.$parent.$watch('editorAutocomplete', () => {
-              editor.setOption('enableLiveAutocompletion', $scope.$parent.editorAutocomplete);
-              editor.setOption('enableBasicAutocompletion', $scope.$parent.editorAutocomplete);
+            $scope.$parent.$watch('autocompleteQuery', () => {
+              editor.setOption('enableLiveAutocompletion', $scope.$parent.autocompleteQuery);
+              editor.setOption('enableBasicAutocompletion', $scope.$parent.autocompleteQuery);
             });
 
             editor.focus();
